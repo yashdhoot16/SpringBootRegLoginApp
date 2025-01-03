@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Show Users</title>
+<link rel="stylesheet" th:href="@{/css/master.css}">
+<style>
+/* Body Styling */
+body {
+	background-color: rgb(192, 192, 192);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.btn-width {
+	width: 100%;
+}
+</style>
+</head>
+
+<body>
+	<h3 style="text-align: center;" class="mb-3 mt-2">Existing Users</h3>
+	<table class="table table-striped" style="width: 50%;">
+		<thead>
+			<tr>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Mobile Number</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${users}">
+				<td th:text="${user.firstName}"></td>
+				<td th:text="${user.lastName}"></td>
+				<td th:text="${user.userCredential.email}"></td>
+				<td th:text="${user.mobileNumber}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="btn-container mt-3">
+		<button type="button" class="btn btn-primary btn-width">
+			<a th:href="@{/logout}">Logout</a>
+		</button>
+	</div>
+
+</body>
+
+</html>

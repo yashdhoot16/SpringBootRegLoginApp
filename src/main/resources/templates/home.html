@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+<link rel="stylesheet" th:href="@{/css/master.css}">
+<style>
+/* Body Styling */
+body {
+	background-color: rgb(192, 192, 192);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+.btn-width {
+	width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="card shadow" style="width: 24rem; padding: 1.5rem;">
+
+		<!--Success Message-->
+		<div th:if="${successMessage}" class="message">
+			<p style="color: green; white-space: pre-line;"
+				th:text="${successMessage}"></p>
+		</div>
+
+		<h3 style="text-align: center;" class="mb-4 mt-4">
+			Welcome <span th:text="${ModelFirstName} + ' ' + ${ModelLastName}"></span>
+		</h3>
+
+		<!-- Buttons for Admin (Show Users, Download Users) -->
+		<div th:if="${isAdmin}" style="display: flex;">
+			<button type="button" class="btn btn-primary"
+				onclick="window.location.href='/show-users?userType=A'">Show
+				Existing Users</button>
+			&nbsp;
+			<button type="button" class="btn btn-primary"
+				onclick="window.location.href='/download-users'">Download</button>
+		</div>
+
+		<!-- Buttons for User (Show User Info) -->
+		<div th:if="${not isAdmin}" class="btn-container mt-3">
+			<button type="button" class="btn btn-primary">
+				<a
+					th:href="@{'/show-user?email=' + ${userInfo.userCredential.email}}">Show
+					Existing User</a>
+			</button>
+		</div>
+
+	</div>
+</body>
+
+</html>
