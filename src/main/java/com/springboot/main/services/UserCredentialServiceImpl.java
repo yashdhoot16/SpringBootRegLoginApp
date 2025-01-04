@@ -16,6 +16,7 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 	@Autowired
 	private UserInfoRepository userInfoRepository;
 
+		@Override
 	public String validateUserLogin(String email, String password) {
 		Optional<UserCredential> userCredentialOpt = this.userCredentialRepository.findByEmail(email);
 		if (userCredentialOpt.isPresent()) {
@@ -26,16 +27,26 @@ public class UserCredentialServiceImpl implements UserCredentialService {
 		}
 	}
 
+	@Override
 	public void registerNewUser(UserCredential userCredential, UserInfo userInfo) {
 		this.userCredentialRepository.save(userCredential);
 		this.userInfoRepository.save(userInfo);
 	}
 
+	@Override
 	public UserInfo getUserInfo(String email) {
 		return this.userInfoRepository.findByUserCredential_Email(email);
 	}
 
+	@Override
 	public List<UserInfo> getAllUsersInfo() {
 		return this.userInfoRepository.findAll();
 	}
+
+	@Override
+	public boolean isEmailRegistered(String email) {
+		return userCredentialRepository.findByEmail(email).isPresent();
+	}
+
+	
 }
