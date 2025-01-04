@@ -122,19 +122,48 @@ public class MyController {
 	public String register(@ModelAttribute UserCredential userCredential, @ModelAttribute UserInfo userInfo,
 			Model model, RedirectAttributes redirectAttributes) {
 		userInfo.setUserCredential(userCredential);
-		if ("A".equals(userInfo.getUserType())) {
-			if (!"admin@domain.com".equals(userInfo.getUserCredential().getEmail())) {
-				redirectAttributes.addFlashAttribute("UnauthorizeMsg", "Unauthorized to register as Admin!");
+		if ("A".equals(userInfo.getUserType())) 
+		{	
+			// Validate email domain or common field for Admin emails
+			String email = userInfo.getUserCredential().getEmail();
+			if (!email.endsWith("@admin.com")) 
+			{
+				redirectAttributes.addFlashAttribute("UnauthorizeMsg",
+						"Unauthorized registration!! | Admin email should ends with @admin.com");
 				return "redirect:/registerPage";
-			} else {
+			}
+			// Check if an Admin with the same email already exists
+			else if (this.userCredentialService.isEmailRegistered(email))
+			{
+				redirectAttributes.addFlashAttribute("errorMessage",
+						"User with email '" + email + "' is already registered as Admin!");
+				return "redirect:/registerPage";
+			}
+			// Register new Admin user
+			else 
+			{
 				this.userCredentialService.registerNewUser(userCredential, userInfo);
 				redirectAttributes.addFlashAttribute("successMessage", "Admin registration successful!");
 				return "redirect:/";
 			}
-		} else {
-			this.userCredentialService.registerNewUser(userCredential, userInfo);
-			redirectAttributes.addFlashAttribute("successMessage", "Registration successful!");
-			return "redirect:/";
+		}
+		// For non-Admin registration
+		else if(this.userCredentialService.isEmailRegistered(userCredential.getEmail()))
+		{
+			redirectAttributes.addFlashAttribute("errorMessage", "User with email '" + userCredential.getEmail() + "' is already registered!");
+			return "redirect:/registerPage";
+		}
+		else 
+		{
+			if(!userCredential.getEmail().endsWith("@admin.com")) {
+				this.userCredentialService.registerNewUser(userCredential, userInfo);
+				redirectAttributes.addFlashAttribute("successMessage", "Registration successful!");
+				return "redirect:/";
+			}
+			else {
+				redirectAttributes.addFlashAttribute("errorMsg", "User Type should be User for non-admin registration..");
+				return "redirect:/registerPage";
+			}
 		}
 	}
 
