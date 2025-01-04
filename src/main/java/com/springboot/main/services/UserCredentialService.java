@@ -12,4 +12,6 @@ public interface UserCredentialService {
 	UserInfo getUserInfo(String email);
 
 	List<UserInfo> getAllUsersInfo();
+
+	boolean isEmailRegistered(String email);
 }
