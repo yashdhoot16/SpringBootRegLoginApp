@@ -30,6 +30,16 @@ body {
 			<div th:if="${UnauthorizeMsg}" class="message">
 				<p style="color: red;" th:utext="${UnauthorizeMsg}"></p>
 			</div>
+			
+			<!--Error Message 1-->
+			<div th:if="${errorMessage}" class="message">
+				<p style="color: red;" th:utext="${errorMessage}"></p>
+			</div>
+
+			<!--Error Message 2-->
+			<div th:if="${errorMsg}" class="message">
+				<p style="color: red;" th:utext="${errorMsg}"></p>
+			</div>
 
 			<div class="form-group mb-2">
 				<label class="mb-1">First Name</label> <input type="text"
