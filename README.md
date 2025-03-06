@@ -1,12 +1,14 @@
 # SpringBootRegLoginApp
 
-<h6>Technologies: Java, Spring Boot, Spring Data JPA, MySQL, ReactJS, ORM, Bootstrap, et</h6>
+<h5>Technologies: Java, Spring Boot, Spring Data JPA, MySQL, Thymeleaf, ORM, Bootstrap, et</h5>
 
 This application implements login and registration functionality using Spring Boot, Hibernate, Spring Data JPA, ORM framework, and Bootstrap. It includes the following features:
 
 <b>Validations:</b><br>
-1.Fields for login and registration are validated to ensure that required fields are not left empty.<br>
-2.Authorization is implemented to restrict access based on user roles.
+<ul>
+<li>Fields for login and registration are validated to ensure that required fields are not left empty.</li><br>
+<li>Authorization is implemented to restrict access based on user roles.</li>
+</ul>
 
 <b>Role-based Access:</b><br>
 1.Users can register as either a User or an Admin.<br>
